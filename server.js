@@ -11,6 +11,7 @@ var server = net.createServer(function (client) {
   client.on('data', function (data) {
     var today = new Date();
     var request = data.toString().split('\n');
+    var path = request[0].split(' ')[1];
 
     var statusCode = '200 OK';
     var response = 'HTTP/1.1' + statusCode + '\n';
