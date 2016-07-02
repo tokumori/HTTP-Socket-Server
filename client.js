@@ -22,9 +22,8 @@ if (URL === undefined) {
       var requestHeaders = 'GET / HTTP/1.1\n';
       requestHeaders += 'Date: ' + today.toUTCString() + '\n';
       requestHeaders += 'Host: ' + URL + '\n';
-      requestHeaders += 'User-Agent: http-client/0.1\n';
+      requestHeaders += 'User-Agent: http-client/0.1\n\n';
       client.write(requestHeaders);
-      client.write('\n');
   });
 
   client.on('data', function (data) {
