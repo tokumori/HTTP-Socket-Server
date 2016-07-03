@@ -37,7 +37,7 @@ if(args[3]) {
 }
 
 if (URL === undefined) {
-  console.log('Usage: node client.js [url] --method [GET/POST/PUT/DELETE/HEAD] --header --port [port number]');
+  console.log('使用する方法: node client.js [url] --method [GET/POST/PUT/DELETE/HEAD] --header --port [port number]');
   } else {
     var client = net.createConnection(PORT, URL, function () {
 
@@ -60,7 +60,9 @@ if (URL === undefined) {
     }
     var statusCode = headerData[0].split(' ')[1].slice(0, 2);
     if (statusCode === '40') {
-      console.log('CLOWNA');
+      console.log('おまえはバカか？');
+    } else if (statusCode === '50') {
+      console.log('このサーバはダメだから別のページに行ってください');
     }
 
     if (headers) {
@@ -72,7 +74,7 @@ if (URL === undefined) {
   });
 
   client.on('end', function (){
-    console.log('Disconnected from server.');
+    console.log('接続解除しました');
   });
 
   client.on('error', function (err) {

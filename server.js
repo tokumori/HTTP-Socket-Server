@@ -6,7 +6,7 @@ var PORT = 8080;
 var HOST = '127.0.0.1';
 
 var server = net.createServer(function (client) {
-  console.log('client connected');
+  console.log('クライアントが接続しました');
 
   client.on('data', function (data) {
     var today = new Date();
@@ -15,24 +15,26 @@ var server = net.createServer(function (client) {
     var statusCode = '200 OK';
     if (path === '/') {
       path = 'index.html';
-    } else if (path === '/helium.html' || path === '/hydrogen.html') {
-      path = path.slice(1);
+    } else if (path === '/helium.html' ||
+      path === '/hydrogen.html' ||
+      path === '/css/styles.css') {
+        path = path.slice(1);
     } else {
       path = '404.html';
       statusCode = '404 Not Found';
     }
 
 
-    var responseHeaders = 'HTTP/1.1 ' + statusCode + '\n';
-    responseHeaders += 'Date: ' + today.toUTCString() + '\n';
-    responseHeaders += 'Server: nginy/1.0.0 \n';
+    var responseHeaders = 'HTTP/1.1 ' + statusCode + '\r\n';
+    responseHeaders += 'Date: ' + today.toUTCString() + '\r\n';
+    responseHeaders += 'Server: nginy/1.0.0 \r\n';
 
     var response = fs.readFile(path, 'utf-8', function (err, data) {
       if (err) {
         throw err;
       } else {
-        responseHeaders += 'Content-Length: ' + data.length + '\n';
-        client.write(responseHeaders + '\n' + data);
+        responseHeaders += 'Content-Length: ' + data.length + '\r\n';
+        client.write(responseHeaders + '\r\n' + data);
         }
       });
   });
@@ -41,5 +43,5 @@ var server = net.createServer(function (client) {
 });
 
 server.listen(PORT, HOST, function () {
-  console.log('Listening on port ' + PORT);
+  console.log(PORT + '番のポートへの接続を持ち受けています');
 });
