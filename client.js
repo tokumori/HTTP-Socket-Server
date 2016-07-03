@@ -8,10 +8,10 @@ var args = process.argv;
 var reqParts = args[2].split('/');
 var URL = reqParts[0];
 var path;
-if (path === undefined) {
-  path = '/';
-  } else {
+if (reqParts[1]) {
   path = '/' + reqParts[1];
+  } else {
+  path = '/';
 }
 var PORT;
 if (URL === 'localhost' || URL === '127.0.0.1') {
@@ -54,12 +54,17 @@ if (URL === undefined) {
     var headerData;
     for (var i = 0; i < splitData.length; i++) {
       if (splitData[i] === '\n') {
-        headerData = splitData.splice(0, i).join();
+        headerData = splitData.splice(0, i);
         break;
       }
     }
+    var statusCode = headerData[0].split(' ')[1].slice(0, 2);
+    if (statusCode === '40') {
+      console.log('CLOWNA');
+    }
+
     if (headers) {
-      console.log(headerData);
+      console.log(headerData.join());
     } else {
       console.log(data.toString());
     }
