@@ -35,7 +35,6 @@ if(args[3]) {
     }
   }
 }
-console.log(PORT);
 
 if (URL === undefined) {
   console.log('Usage: node client.js [url] --method [GET/POST/PUT/DELETE/HEAD] --header --port [port number]');
@@ -47,21 +46,18 @@ if (URL === undefined) {
       requestHeaders += 'Date: ' + today.toUTCString() + '\n';
       requestHeaders += 'Host: ' + URL + '\n';
       requestHeaders += 'User-Agent: http-client/0.1\n';
-      console.log(requestHeaders);
       client.write(requestHeaders + '\n');
   });
 
   client.on('data', function (data) {
     var splitData = data.toString().split('\r');
     var headerData;
-    console.log(splitData);
     for (var i = 0; i < splitData.length; i++) {
       if (splitData[i] === '\n') {
         headerData = splitData.splice(0, i).join();
         break;
       }
     }
-    console.log(headers);
     if (headers) {
       console.log(headerData);
     } else {
