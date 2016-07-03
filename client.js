@@ -59,4 +59,8 @@ if (URL === undefined) {
   client.on('end', function (){
     console.log('Disconnected from server.');
   });
+
+  client.on('error', function (err) {
+    throw err;
+  });
 }
