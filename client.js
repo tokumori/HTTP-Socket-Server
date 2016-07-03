@@ -78,6 +78,11 @@ if (URL === undefined) {
   });
 
   client.on('error', function (err) {
-    throw err;
+    var errorCode = err.code;
+    if (errorCode === 'ENOTFOUND') {
+      console.log('指定されたURLは存在しませんでした');
+    } else if (errorCode === 'ECONNREFUSED') {
+      console.log('指定されたポート番はお持ち受けしておりませんでした');
+    }
   });
 }
