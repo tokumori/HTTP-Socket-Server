@@ -27,7 +27,7 @@ if(args[3]) {
     if (args[i] === '--method') {
       method = args[i + 1].toUpperCase();
     }
-    if (args[i] === '--header') {
+    if (args[i] === '--headers') {
       headers = true;
     }
     if (args[i] === '--port') {
@@ -52,7 +52,21 @@ if (URL === undefined) {
   });
 
   client.on('data', function (data) {
-    console.log(data.toString());
+    var splitData = data.toString().split('\r');
+    var headerData;
+    console.log(splitData);
+    for (var i = 0; i < splitData.length; i++) {
+      if (splitData[i] === '\n') {
+        headerData = splitData.splice(0, i).join();
+        break;
+      }
+    }
+    console.log(headers);
+    if (headers) {
+      console.log(headerData);
+    } else {
+      console.log(data.toString());
+    }
     client.end();
   });
 
